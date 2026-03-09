@@ -692,10 +692,8 @@ export function recoverYouTubeLinksFromPlaylistMarkdown(markdown: string): strin
     if (!trimmed.startsWith('|')) continue;
     if (trimmed.includes('YouTube Link') || trimmed.includes('---')) continue;
 
-    const cells = trimmed
-      .split(/(?<!\\)\|/g)
-      .map((cell) => cell.trim())
-      .filter(Boolean);
+    const rawCells = trimmed.split(/(?<!\\)\|/g);
+    const cells = rawCells.slice(1, -1).map((cell) => cell.trim());
     const youtubeLinkCell = cells[4];
     if (!youtubeLinkCell) continue;
 
@@ -707,7 +705,7 @@ export function recoverYouTubeLinksFromPlaylistMarkdown(markdown: string): strin
       try {
         const parsed = new URL(link);
         const host = parsed.hostname.toLowerCase();
-        const isYouTubeHost = host === 'youtu.be' || host.includes('youtube.com');
+        const isYouTubeHost = host === 'youtu.be' || host === 'youtube.com' || host.endsWith('.youtube.com');
         if (isYouTubeHost) recovered.push(link);
       } catch {
         // Skip malformed URLs in malformed table rows.
