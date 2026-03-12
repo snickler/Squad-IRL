@@ -117,10 +117,10 @@ test('appendMarkdownRow creates header once and appends rows', () => {
 
 test('playlist filename and archive append semantics remain append-only and parseable', () => {
   const tempRoot = mkdtempSync(join(tmpdir(), 'mood-playlist-archive-'));
-  const playlistPath = join(tempRoot, 'mood-playlists', getPlaylistFilename(new Date('2026-03-09T08:30:00Z')));
+  const playlistPath = join(tempRoot, 'mood-playlists', getPlaylistFilename(new Date(2026, 2, 9, 8, 30, 0)));
   const archivePath = join(tempRoot, 'mood-archive.md');
 
-  assert.equal(getPlaylistFilename(new Date('2026-03-09T08:30:00Z')), 'playlist-2026-03-09.md');
+  assert.equal(getPlaylistFilename(new Date(2026, 2, 9, 8, 30, 0)), 'playlist-2026-03-09.md');
 
   appendMarkdownRow(playlistPath, ['Mood', 'Genre', 'Artist', 'Song', 'YouTube Link'], [
     'Calm Focus',

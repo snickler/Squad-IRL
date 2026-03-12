@@ -11,13 +11,13 @@ import {
 test('mood-playlist orchestration requires all squad.config.ts responsibility agents', () => {
   assert.doesNotThrow(() => assertMoodOrchestrationConfig());
 
-  const missingLogicConductor = {
+  const missingLogicGuardian = {
     ...squadConfig,
     agents: squadConfig.agents.filter((agent) => agent.name !== 'mood-logic-guardian'),
   };
 
   assert.throws(
-    () => assertMoodOrchestrationConfig(missingLogicConductor as typeof squadConfig),
+    () => assertMoodOrchestrationConfig(missingLogicGuardian as typeof squadConfig),
     /missing required mood squad agent "mood-logic-guardian"/,
   );
 });
